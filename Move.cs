@@ -15,11 +15,7 @@ class Move
             || move == 7 || move == 8 || move == 9;
     }
 
-    public static bool IsValidMove(int move)
-    {
-        return Grid.str[move - 1] == "0" ||
-               Grid.str[move - 1] == "X";
-    }
+
 
     public static bool IsSpotFree(int move)
     {

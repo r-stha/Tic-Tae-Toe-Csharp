@@ -1,9 +1,17 @@
-
 class Grid
 {
     public static string[] str = ["1", "2", "3",
-                                 " 4", "5", "6",
-                                 "7", "8", "9"];
+                                  "4", "5", "6",
+                                  "7", "8", "9"];
+
+
+    public static void UpdateGridNumber()
+    {
+        str = ["1", "2", "3",
+               "4", "5", "6",
+               "7", "8", "9"];
+    }
+
     public static void Draw()
     {
         Console.Clear();
@@ -20,45 +28,51 @@ class Grid
 
     public static void UpdateGrid()
     {
+        Player player1 = new Player("0");
+        Player player2 = new Player("X");
+
         int numberOfMoves = 0;
-        string playerTurn = "0";
 
-
-        while (numberOfMoves != 9)
+        while (numberOfMoves < 9)
         {
-            int move = Move.TakeMoveInput();
-            if (Move.CheckMove(move))
-            {
-                if (!Move.IsSpotFree(move))
-                {
-                    Console.WriteLine("Invalid move");
-                    numberOfMoves--;
-                }
-                else if (playerTurn == "0")
-                {
-                    str[move - 1] = "0";
-                    playerTurn = "X";
-                    Draw();
-                    if (Winner.CheckWinner(str))
-                    {
-                        Console.WriteLine("Winner is 0");
-                        break;
-                    }
-                }
-                else
-                {
-                    str[move - 1] = "X";
-                    Draw();
-                    playerTurn = "0";
-                    if (Winner.CheckWinner(str))
-                    {
-                        Console.WriteLine("Winner is X");
 
-                        break;
-                    }
-                }
-            }
+            do
+            {
+                Console.WriteLine($"Player {player1.Symbol} turn:");
+            } while (!player1.MakeAMove());
+
             numberOfMoves++;
+
+            if (player1.WonGame())
+            {
+                break;
+            }
+
+            if (Winner.Tie(numberOfMoves))
+            {
+                Console.WriteLine("TIE...");
+                break;
+
+            }
+
+
+            do
+            {
+                Console.WriteLine($"Player {player2.Symbol} turn:");
+
+            }
+            while (!player2.MakeAMove());
+
+            numberOfMoves++;
+
+
+
+            if (player2.WonGame())
+            {
+                break;
+            }
         }
+
+
     }
 }

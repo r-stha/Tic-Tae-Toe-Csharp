@@ -1,9 +1,18 @@
-﻿
-class MainProgram
+﻿class MainProgram
 {
+
     public static void Main()
     {
-     Grid.Draw();
-     Grid.UpdateGrid();
+        string? choice;
+        do
+        {
+            Grid.UpdateGridNumber();
+            Grid.Draw();
+            Grid.UpdateGrid();
+            
+            Console.WriteLine("Do you want to play again(y/n):");
+            choice = Console.ReadLine();
+
+        } while (choice == "y" || choice == "Y" );
     }
 }
